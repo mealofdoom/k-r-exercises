@@ -4,7 +4,6 @@
 #define MAXLINE 1000 /* maximum input line size */
 
 int mygetline(char line[], int maxline);
-void copy (char to[], char from[]);
 
 /* print longest input line */
 int main ()
@@ -16,13 +15,10 @@ int main ()
     
     max = 0;
     while (( len = mygetline(line, MAXLINE)) > 0)
-        if (len > max)
+        if (len >= 80)
         {
-            max = len;
-            copy(longest, line);
-        }
-    if (max > 0) /* there was a line */
-        printf ("%s\n", longest);
+            printf ("%s\n", line);
+        }        
 
     return 0;
 }
@@ -32,8 +28,11 @@ int mygetline (char s[], int lim)
 {
     int c, i;
     
-    for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
-        s[i] = c;
+    for (i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
+    {
+        if (i < lim - 1)
+            s[i] = c;
+    }
     if (i == 0 && c == '\n') //counts newlines only when alone in a line (aka a blank line)
     {
         s[i] = c;
@@ -41,14 +40,4 @@ int mygetline (char s[], int lim)
     }
     s[i] = '\0';
     return i;
-}
-
-/* copy: copy 'from' into 'to'; assume to is big enough */
-void copy( char to[], char from[])
-{
-    int i;
-    
-    i = 0;
-    while ((to[i] = from[i]) != '\0')
-        ++i;
 }

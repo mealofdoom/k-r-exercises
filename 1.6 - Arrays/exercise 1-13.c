@@ -3,7 +3,7 @@
 #define IN 1 /* inside a word */
 #define OUT 0 /* outinside a word */
 
-#define MAXWORDSIZE 100
+#define MAXWORDSIZE 50
 
 
 /*count lines, words, and characters in input */
@@ -14,6 +14,8 @@ int main ()
     int wordsize;
     int i,j;
     int c, nl, nw, nc, state;
+
+    wordsize = 0;
     
     state = OUT;
     nl = nw = nc = 0;
@@ -23,6 +25,7 @@ int main ()
 
     while ((c = getchar()) != EOF)
     {
+
         if ( c == ' ' || c == '\n' || c == '\t')
         {
             if (state == IN)
@@ -44,8 +47,10 @@ int main ()
 
     for (i = 0; i < MAXWORDSIZE; ++i)
     {
+        printf("%d\t: ", i);
         for (j = 0; j < wordcounts[i]; ++j)
         {
+
             putchar('=');
         }
         printf("\n");   
